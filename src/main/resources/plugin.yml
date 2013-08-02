@@ -1,0 +1,5 @@
+name: ${project.name}
+main: net.daboross.bukkitdev.datedmotd.DatedMOTDPlugin
+version: ${project.version}
+author: Dabo Ross
+description: Message Of The Day plugin that includes a date.
