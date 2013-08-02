@@ -31,6 +31,7 @@ public class DatedMOTDPlugin extends JavaPlugin {
 
     private MOTDConfig config;
     private MOTDParser parser;
+    private MOTDListener listener;
 
     @Override
     public void onEnable() {
@@ -46,6 +47,8 @@ public class DatedMOTDPlugin extends JavaPlugin {
         config = new MOTDConfig(this);
         config.loadConfig();
         parser = new MOTDParser(this);
+        listener = new MOTDListener(this);
+        getServer().getPluginManager().registerEvents(listener, this);
     }
 
     @Override

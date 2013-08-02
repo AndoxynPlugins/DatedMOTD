@@ -1,3 +1,6 @@
 Welcome to %server, %player!
 This is an example MOTD File.
 The current date is %date!
+&1Color &2Codes &4Also &5Work!
+The time is %time %AMPM.
+Here are the other people online: %online
