@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
@@ -29,12 +27,13 @@ import org.mcstats.MetricsLite;
  *
  * @author daboross
  */
-public class DatedMOTDPlugin extends JavaPlugin implements Listener {
+public class DatedMOTDPlugin extends JavaPlugin {
+
+    private MOTDConfig config;
+    private MOTDParser parser;
 
     @Override
     public void onEnable() {
-        PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(this, this);
         MetricsLite metrics = null;
         try {
             metrics = new MetricsLite(this);
@@ -44,6 +43,9 @@ public class DatedMOTDPlugin extends JavaPlugin implements Listener {
         if (metrics != null) {
             metrics.start();
         }
+        config = new MOTDConfig(this);
+        config.loadConfig();
+        parser = new MOTDParser(this);
     }
 
     @Override
@@ -52,10 +54,15 @@ public class DatedMOTDPlugin extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("")) {
-        } else {
-            sender.sendMessage("DatedMOTD doesn't know about the command /" + cmd.getName());
-        }
+        sender.sendMessage("DatedMOTD doesn't know about the command /" + cmd.getName());
         return true;
+    }
+
+    public MOTDConfig getMOTDConfig() {
+        return config;
+    }
+
+    public MOTDParser getParser() {
+        return parser;
     }
 }
